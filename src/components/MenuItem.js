@@ -8,7 +8,7 @@ const MenuItem = ({ title, imgSrc, description, price }) => {
   return (
     <>
       <div className="col-5">
-        <img src={"/images/" + imgSrc} className="img-responsive" alt={title} />
+        <img src={imgSrc} className="img-responsive" alt={title} />
       </div>
       <div className="col-7">
         <h2 className="item-name">{title}</h2>

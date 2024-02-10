@@ -7,12 +7,14 @@ import React from "react";
 const MenuItem = ({ title, imgSrc, description, price }) => {
   return (
     <>
-      <div className="col-5">
+      <div className="col-4">
         <img src={imgSrc} className="img-responsive" alt={title} />
       </div>
-      <div className="col-7">
-        <h2 className="item-name">{title}</h2>
-        <p className="description">{description}</p>
+      <div className="col-8">
+        <div>
+          <h2 className="item-name">{title}</h2>
+          <p className="description">{description}</p>
+        </div>
         <div className="row price-and-bt">
           <div className="col-6">
             <p className="price">Price: ${price}</p>

@@ -25,6 +25,7 @@
   font-size: 180%;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   margin: 0px 0px 80px 0px;
+  text-align: center;
 }
 
 .container {
@@ -47,13 +48,13 @@
 img {
   display: block;
   height: auto;
-  max-width: 100%;
+  max-width: 85%;
   border-radius: 10%;
   margin-left: 5px;
 }
 
 .row {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .item-name {
@@ -62,17 +63,20 @@ img {
 
 .description {
   font-size: 16px;
+  margin-bottom: 0px;
 }
 
 .price-and-bt {
   display: flex;
   align-items: end;
+  margin: 0px;
+  justify-content: space-between;
 }
 
 .add-button {
   border-radius: 20px;
   background-color: rgb(214, 79, 79);
-  margin-left: 34px;
+  margin-left: 50px;
   color: white;
   font-size: 80%;
   padding: 5px 10px 5px;
@@ -80,5 +84,19 @@ img {
 }
 
 .price {
-  margin: 0;
+  margin: 0px;
+}
+
+.col-8 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0px;
+}
+
+.col-4 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }

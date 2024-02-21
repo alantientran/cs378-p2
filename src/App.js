@@ -1,9 +1,9 @@
 import "./App.css";
 import MenuItem from "./components/MenuItem";
 import Header from "./components/Header";
+import SubtotalRow from "./components/SubtotalRow";
 
 import "bootstrap/dist/css/bootstrap.min.css"; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
-import SubtotalRow from "./components/SubtotalRow";
 
 // ChatGPT was used to import the google font. Link to conversation:
 // https://chat.openai.com/c/617eefc1-e74a-4138-994e-3c8213985ecf

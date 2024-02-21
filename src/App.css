@@ -3,11 +3,14 @@
   Below, you can see an example of a class called "menu" that changes the color of the text to blue. Modify according to your needs.
 */
 
-.logo {
+.logo-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.logo {
   margin: 30px 0px 20px 0px;
   max-width: 200px;
 }

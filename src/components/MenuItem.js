@@ -1,4 +1,5 @@
 import React from "react";
+import ItemCounter from "./ItemCounter";
 
 // This is a functional component that represents a single menu item. It currently takes in the title and displays it in an h2 element.
 // Modify the component to take in all the other properties of a menu item you need and display them in the component.
@@ -20,7 +21,7 @@ const MenuItem = ({ title, imgSrc, description, price }) => {
             <p className="price">Price: ${price}</p>
           </div>
           <div className="col-6">
-            <button className="add-button">Add</button>
+            <ItemCounter />
           </div>
         </div>
       </div>

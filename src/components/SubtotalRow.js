@@ -1,13 +1,14 @@
 import React from "react";
 
-function SubtotalRow() {
+function SubtotalRow({ subtotal }) {
+  const displaySubtotal = subtotal >= 0 ? subtotal.toFixed(2) : "0.00";
   return (
-    <div className="row">
-      <div className="col-4">Subtotal:</div>
+    <>
+      <div className="col-4 subtotal">Subtotal: ${displaySubtotal}</div>
       <div className="col-8">
         <button></button>
       </div>
-    </div>
+    </>
   );
 }
 

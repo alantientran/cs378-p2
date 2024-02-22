@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import ItemCounter from "./ItemCounter";
 
 // This is a functional component that represents a single menu item. It currently takes in the title and displays it in an h2 element.
 // Modify the component to take in all the other properties of a menu item you need and display them in the component.
 // Use bootstrap to style the elements so that it looks like the mockup in the assignment.
 // Hint: You can use the image name to get the image from the images folder.
-const MenuItem = ({ title, imgSrc, description, price }) => {
+const MenuItem = ({ title, imgSrc, description, price, onSubtotalChange }) => {
+  const handleQuantityChange = (quantity) => {
+    const priceChange = quantity * price;
+    onSubtotalChange(priceChange);
+  };
+
   return (
     <>
       <div className="col-4">
@@ -21,7 +26,10 @@ const MenuItem = ({ title, imgSrc, description, price }) => {
             <p className="price">Price: ${price}</p>
           </div>
           <div className="col-6">
-            <ItemCounter />
+            <ItemCounter
+              price={price}
+              handleQuantityChange={handleQuantityChange}
+            />
           </div>
         </div>
       </div>

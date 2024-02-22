@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 
-function ItemCounter() {
+function ItemCounter({ price, handleQuantityChange }) {
   const [count, setCount] = useState(0);
 
   const incrementCount = () => {
     setCount(count + 1);
+    handleQuantityChange(1);
   };
 
   const decrementCount = () => {
     if (count > 0) {
       setCount(count - 1);
+      handleQuantityChange(-1);
     }
   };
 

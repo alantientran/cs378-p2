@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useState } from "react";
 import MenuItem from "./components/MenuItem";
 import Header from "./components/Header";
 import SubtotalRow from "./components/SubtotalRow";
@@ -93,6 +94,11 @@ const menuItems = [
 ];
 
 function App() {
+  const [subtotal, setSubtotal] = useState(0);
+
+  const handleSubtotalChange = (priceChange) => {
+    setSubtotal(subtotal + priceChange);
+  };
   return (
     <div className="container">
       <Header />
@@ -106,10 +112,14 @@ function App() {
             imgSrc={item.imageName}
             description={item.description}
             price={item.price}
+            onSubtotalChange={handleSubtotalChange}
           />
         </div>
       ))}
-      <SubtotalRow />
+      <div className="row">
+        {/* Gets in the right position when changed to col-12? */}
+        <SubtotalRow subtotal={subtotal} />
+      </div>
     </div>
   );
 }

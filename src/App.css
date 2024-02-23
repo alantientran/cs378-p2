@@ -119,11 +119,18 @@ img {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  /* margin-right: 6px; */
+}
+
+.sticky-bar {
+  position: fixed;
+  bottom: -25px;
+  width: 110%;
+  background-color: rgb(216, 210, 173);
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 17px;
 }
 
 .subtotal {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  padding-left: 10px;
 }

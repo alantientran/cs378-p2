@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import MenuItem from "./components/MenuItem";
 import Header from "./components/Header";
-import SubtotalRow from "./components/SubtotalRow";
+import Subtotal from "./components/Subtotal";
 
 import "bootstrap/dist/css/bootstrap.min.css"; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
 
@@ -95,32 +95,47 @@ const menuItems = [
 
 function App() {
   const [subtotal, setSubtotal] = useState(0);
+  const [itemCount, setItemCount] = useState(0);
 
   const handleSubtotalChange = (priceChange) => {
     setSubtotal(subtotal + priceChange);
   };
+
+  const handleClearAll = () => {
+    setItemCount(0);
+    setSubtotal(subtotal * 0);
+  };
+
   return (
-    <div className="container">
-      <Header />
-      {/* Display menu items dynamically here by iterating over the provided menuItems */}
-      {menuItems.map((item) => (
-        <div className="row">
-          <MenuItem
-            className="menu-item"
-            key={item.id}
-            title={item.title}
-            imgSrc={item.imageName}
-            description={item.description}
-            price={item.price}
-            onSubtotalChange={handleSubtotalChange}
-          />
-        </div>
-      ))}
-      <div className="row">
-        {/* Gets in the right position when changed to col-12? */}
-        <SubtotalRow subtotal={subtotal} />
+    <>
+      <div className="container">
+        <Header />
+        {/* Display menu items dynamically here by iterating over the provided menuItems */}
+        {menuItems.map((item) => (
+          <div className="row">
+            <MenuItem
+              className="menu-item"
+              key={item.id}
+              title={item.title}
+              imgSrc={item.imageName}
+              description={item.description}
+              price={item.price}
+              onSubtotalChange={handleSubtotalChange}
+              onClearAll={handleClearAll}
+            />
+          </div>
+        ))}
       </div>
-    </div>
+      <div className="row sticky-bar">
+        <div className="col-5 subtotal">
+          {/* Gets in the right position when changed to col-12? */}
+          <Subtotal subtotal={subtotal} />
+        </div>
+        <div className="col-7">
+          <button onClick={handleClearAll}>Clear</button>
+        </div>
+      </div>
+    </>
   );
 }
 

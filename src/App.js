@@ -2,12 +2,19 @@ import "./App.css";
 import React, { useState } from "react";
 import MenuItem from "./components/MenuItem";
 import Header from "./components/Header";
-import Subtotal from "./components/Subtotal";
+import NavBar from "./components/NavBar";
+import Modal from "./components/Modal";
 
 import "bootstrap/dist/css/bootstrap.min.css"; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
 
-// ChatGPT was used to import the google font. Link to conversation:
-// https://chat.openai.com/c/617eefc1-e74a-4138-994e-3c8213985ecf
+/* ChatGPT was used to:
+ * Import the google font. Link to conversation:
+ *   https://chat.openai.com/c/617eefc1-e74a-4138-994e-3c8213985ecf
+ * Customize the modal alert and integrate modal code from
+ *    https://getbootstrap.com/docs/4.0/components/modal/
+ *    Link to conversation:
+ *      https://chat.openai.com/c/2e49faa2-d0a8-4062-adc9-66e7f7739961
+ */
 
 // import Google Fonts stylesheet
 const link = document.createElement("link");
@@ -95,22 +102,48 @@ const menuItems = [
 
 function App() {
   const [subtotal, setSubtotal] = useState(0);
-  const [itemCount, setItemCount] = useState(0);
+  const [cart, setCart] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
 
-  const handleSubtotalChange = (priceChange) => {
-    setSubtotal(subtotal + priceChange);
+  const updateSubtotal = (priceChange) => {
+    setSubtotal(Math.max(subtotal + priceChange, 0));
   };
 
   const handleClearAll = () => {
-    setItemCount(0);
-    setSubtotal(subtotal * 0);
+    setSubtotal(0);
+    setCart({});
   };
+
+  function updateCart(title, itemCount) {
+    cart[title] = itemCount;
+    setCart(cart);
+  }
+
+  const handleOrder = () => {
+    if (subtotal === 0) {
+      setModalContent("No items in cart");
+    } else {
+      let cartOverview = Object.keys(cart)
+        .map((title) => cart[title] + " " + title)
+        .join("\n");
+      setModalContent("Order Placed!\n" + cartOverview);
+    }
+    setIsModalOpen(true);
+  };
+
+  const extraMarginsForNavBar = (
+    <>
+      <br />
+      <br />
+    </>
+  );
 
   return (
     <>
       <div className="container">
         <Header />
-        {/* Display menu items dynamically here by iterating over the provided menuItems */}
         {menuItems.map((item) => (
           <div className="row">
             <MenuItem
@@ -120,21 +153,25 @@ function App() {
               imgSrc={item.imageName}
               description={item.description}
               price={item.price}
-              onSubtotalChange={handleSubtotalChange}
-              onClearAll={handleClearAll}
+              subtotal={subtotal}
+              updateSubtotal={updateSubtotal}
+              updateCart={updateCart}
             />
           </div>
         ))}
       </div>
-      <div className="row sticky-bar">
-        <div className="col-5 subtotal">
-          {/* Gets in the right position when changed to col-12? */}
-          <Subtotal subtotal={subtotal} />
-        </div>
-        <div className="col-7">
-          <button onClick={handleClearAll}>Clear</button>
-        </div>
-      </div>
+      <NavBar
+        subtotal={subtotal}
+        handleClearAll={handleClearAll}
+        handleOrder={handleOrder}
+      />
+      {extraMarginsForNavBar}
+      <Modal
+        isOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+        title={modalTitle}
+        content={modalContent}
+      />
     </>
   );
 }

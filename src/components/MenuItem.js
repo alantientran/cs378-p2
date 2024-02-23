@@ -1,14 +1,35 @@
 import React, { useState } from "react";
-import ItemCounter from "./ItemCounter";
 
-// This is a functional component that represents a single menu item. It currently takes in the title and displays it in an h2 element.
-// Modify the component to take in all the other properties of a menu item you need and display them in the component.
-// Use bootstrap to style the elements so that it looks like the mockup in the assignment.
-// Hint: You can use the image name to get the image from the images folder.
-const MenuItem = ({ title, imgSrc, description, price, onSubtotalChange }) => {
-  const handleQuantityChange = (quantity) => {
-    const priceChange = quantity * price;
-    onSubtotalChange(priceChange);
+const MenuItem = ({
+  title,
+  imgSrc,
+  description,
+  price,
+  subtotal,
+  updateSubtotal,
+  updateCart,
+}) => {
+  var [itemCount, setItemCount] = useState(0);
+
+  /* Updates counters upon clearAll input */
+  if (itemCount !== 0 && subtotal === 0) {
+    setItemCount(0);
+  }
+
+  const addItem = () => {
+    const updatedCount = itemCount + 1;
+    updateCart(title, updatedCount);
+    setItemCount(itemCount + 1);
+    updateSubtotal(price);
+  };
+
+  const removeItem = () => {
+    if (itemCount !== 0) {
+      const updatedCount = itemCount - 1;
+      updateCart(title, updatedCount);
+      setItemCount(updatedCount);
+      updateSubtotal(-price);
+    }
   };
 
   return (
@@ -16,7 +37,7 @@ const MenuItem = ({ title, imgSrc, description, price, onSubtotalChange }) => {
       <div className="col-4">
         <img src={imgSrc} className="img-responsive" alt={title} />
       </div>
-      <div className="col-8">
+      <div className="col-8 menu-item-text">
         <div>
           <h2 className="item-name">{title}</h2>
           <p className="description">{description}</p>
@@ -25,11 +46,14 @@ const MenuItem = ({ title, imgSrc, description, price, onSubtotalChange }) => {
           <div className="col-6">
             <p className="price">Price: ${price}</p>
           </div>
-          <div className="col-6">
-            <ItemCounter
-              price={price}
-              handleQuantityChange={handleQuantityChange}
-            />
+          <div className="col-6 counter-updater">
+            <button className="button buttons minus" onClick={removeItem}>
+              -
+            </button>
+            <div className="count">{itemCount}</div>
+            <button className="button buttons add" onClick={addItem}>
+              +
+            </button>
           </div>
         </div>
       </div>
